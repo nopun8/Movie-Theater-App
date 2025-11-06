@@ -1,0 +1,94 @@
+/* Base & Reset */
+body {
+  margin: 0;
+  font-family: Arial, Helvetica, sans-serif;
+  background-color: #253822; /* Orange dashboard background */
+  color: #333;
+}
+
+/* Container */
+.container {
+  max-width: 900px;
+  margin: 2rem auto;
+  padding: 2rem;
+  background-color: #fff; /* white card area */
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(20, 1, 1, 0.1);
+}
+
+/* Header */
+.header {
+  text-align: center;
+  padding: 1rem 0;
+  border-bottom: 2px solid #ffd580;
+}
+
+/* .header img {
+  height: 50px;
+} */
+
+/* Titles */
+h1, h2, h3 {
+  margin: 0.5rem 0;
+  text-align: center;
+}
+
+/* Buttons */
+button {
+  padding: 0.5rem 1rem;
+  background-color: #23953f;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+button:hover {
+  background-color: #3478a2;
+}
+
+/* Forms */
+input, select, textarea {
+  padding: 0.5rem;
+  margin: 0.5rem 0;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* Tables */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 1rem;
+}
+
+table th, table td {
+  padding: 0.5rem;
+  border-bottom: 1px solid #eee;
+}
+
+table th {
+  background-color: #102466;
+  font-weight: bold;
+}
+
+/* Cards / Match items */
+.card {
+  padding: 1rem;
+  margin-bottom: 1rem;
+  background-color: #7f898f;
+  border-radius: 8px;
+}
+
+/* Links */
+a {
+  color: #da947b;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}

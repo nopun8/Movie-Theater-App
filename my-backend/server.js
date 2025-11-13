@@ -5,25 +5,14 @@ const passport = require('passport')
 const JwtStrategy = require('passport-jwt').Strategy
 const ExtractJwt = require('passport-jwt').ExtractJwt
 const cors = require('cors')
-const { Pool } = require('pg')
+const { pool } = require('./db.js');
+const moviesRoutes = require('./routes/movies');
+const theatersRoutes = require('./routes/theaters');
+const showtimesRoutes = require('./routes/showtimes');
+const seatsRoutes = require('./routes/seats');
 
 const app = express()
 const PORT = 5000
-
-const pool = new Pool({
-  user: 'postgres',           // Your PostgreSQL username
-  host: 'localhost',
-  database: 'movie-theater-app',        // Database name created
-  password: '1234',  // Your PostgreSQL password
-  port: 5432,
-})
-pool.connect((err, client, release) => {
-  if (err) {
-    return console.error('❌ Error connecting to database:', err.stack)
-  }
-  console.log('✅ Connected to PostgreSQL database')
-  release()
-})
 
 // Secret key for JWT
 const JWT_SECRET = "mysecretsignkey-dontleakthis"
@@ -57,6 +46,11 @@ passport.use(new JwtStrategy(jwtOptions, async (jwt_payload, done) => {
     return done(error, false)
   }
 }))
+
+app.use('/api/movies', moviesRoutes);
+app.use('/api/theaters', theatersRoutes);
+app.use('/api/showtimes', showtimesRoutes);
+app.use('/api/seats', seatsRoutes);
 
 app.get('/', (req, res) => {
   res.send('Hello World!')

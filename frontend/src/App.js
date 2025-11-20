@@ -5,6 +5,9 @@ import Login from './components/Login';
 import Register from './components/Register';
 import Dashboard from './components/Dashboard';
 
+import UpcomingMovies from './components/UpcomingMovies';
+
+
 import MoviesList from './components/MoviesList';
 import MovieDetails from './components/MovieDetails';
 import ShowtimesList from './components/ShowtimesList';
@@ -48,7 +51,9 @@ function App() {
           <Link to="/register" style={linkStyle}>Register</Link>
           <Link to="/dashboard" style={linkStyle}>Dashboard</Link>
           <Link to="/movies" style={linkStyle}>Movies</Link>
+          <Link to="/upcoming" style={linkStyle}>Upcoming</Link>
         </nav>
+        
       </header>
        <Routes>
           <Route path="/" element={<Navigate to="/login" replace />} />
@@ -62,6 +67,9 @@ function App() {
 
         
         <Route path="/movies/:movieId/showtimes" element={<ShowtimesList />} />
+
+        <Route path="/upcoming" element={<UpcomingMovies />} />
+        
         <Route path="/showtime/:showtimeId/seats" element={<SeatSelection />} />
         </Routes>
     </div>

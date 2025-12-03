@@ -10,6 +10,9 @@ const moviesRoutes = require('./routes/movies');
 const theatersRoutes = require('./routes/theaters');
 const showtimesRoutes = require('./routes/showtimes');
 const seatsRoutes = require('./routes/seats');
+const bookingsRoutes = require('./routes/bookings');
+const paymentsRoutes = require('./routes/payments');
+
 
 const app = express()
 const PORT = 5000
@@ -51,6 +54,8 @@ app.use('/api/movies', moviesRoutes);
 app.use('/api/theaters', theatersRoutes);
 app.use('/api/showtimes', showtimesRoutes);
 app.use('/api/seats', seatsRoutes);
+app.use('/api/bookings', bookingsRoutes);
+app.use('/api/payments', paymentsRoutes);
 
 app.get('/', (req, res) => {
   res.send('Hello World!')
@@ -114,7 +119,7 @@ app.post('/login', async (req, res) => {
     if(hashCheckResult)
     {
       // yay login successful -> generate a JWT for the user
-      const token = jwt.sign({ userEmail: user.userEmail }, JWT_SECRET)
+      const token = jwt.sign({ userEmail: user.email }, JWT_SECRET)
       console.log(token)
 
       res.json({token: token})

@@ -13,6 +13,9 @@ import MovieDetails from './components/MovieDetails';
 import ShowtimesList from './components/ShowtimesList';
 import SeatSelection from './components/SeatSelection'; 
 
+import BookingPage from './components/BookingPage';
+import PaymentPage from './components/PaymentPage';
+
 const linkStyle = {
   color: '#fff',
   textDecoration: 'none',
@@ -71,6 +74,8 @@ function App() {
         <Route path="/upcoming" element={<UpcomingMovies />} />
         
         <Route path="/showtime/:showtimeId/seats" element={<SeatSelection />} />
+        <Route path="/booking/:bookingId" element={<BookingPage />} />
+<Route path="/payment/:bookingId" element={<PaymentPage />} />
         </Routes>
     </div>
   );

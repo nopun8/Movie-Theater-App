@@ -1,12 +1,12 @@
 // components/SeatSelection.js
 import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 
 const API_BASE = process.env.REACT_APP_API_BASE || 'http://localhost:5000/api';
 
 function SeatSelection() {
   const { showtimeId } = useParams();
-
+  const navigate = useNavigate();
   const [totalSeats, setTotalSeats] = useState(0);
   const [seatsPerRow, setSeatsPerRow] = useState(0);
   const [bookedSeats, setBookedSeats] = useState(new Set());
@@ -69,43 +69,58 @@ function SeatSelection() {
 
   // Book seats
   const handleBook = async () => {
-    if (selectedSeats.size === 0) {
-      setMessage("Please select at least one seat.");
-      return;
+  if (selectedSeats.size === 0) {
+    setMessage('Please select at least one seat.');
+    return;
+  }
+
+  const token = localStorage.getItem('token');
+  if (!token) {
+    setMessage('Please log in to book seats.');
+    navigate('/login');
+    return;
+  }
+
+  try {
+    const seatsArray = Array.from(selectedSeats).map((k) => {
+      const [row_number, seat_number] = k.split('-').map(Number);
+      return { 
+        row_number, 
+        seat_number,
+        age: seatAges[k] || 20   // if you use age, else remove this line
+      };
+    });
+
+    const res = await fetch(`${API_BASE}/seats/book`, {
+      method: 'POST',
+      headers: { 
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`,
+      },
+      body: JSON.stringify({ showtimeId, seats: seatsArray }),
+    });
+
+    const data = await res.json();
+
+    if (!res.ok || !data.success) {
+      throw new Error(data.message || 'Booking failed');
     }
 
-    try {
-      const seatsArray = Array.from(selectedSeats).map(k => {
-        const [row_number, seat_number] = k.split('-').map(Number);
-        return {
-          row_number,
-          seat_number,
-          age: seatAges[k] || 20
-        };
-      });
+    // Clear local selection in UI
+    const newBooked = new Set(bookedSeats);
+    selectedSeats.forEach((s) => newBooked.add(s));
+    setBookedSeats(newBooked);
+    setSelectedSeats(new Set());
 
-      const res = await fetch(`${API_BASE}/seats/book`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ showtimeId, seats: seatsArray })
-      });
+    // Redirect to booking summary page
+    navigate(`/booking/${data.booking_id}`);
 
-      if (!res.ok) {
-        const data = await res.json().catch(() => ({}));
-        throw new Error(data.message || "Booking failed");
-      }
+  } catch (err) {
+    console.error(err);
+    setMessage(err.message || 'Booking failed.');
+  }
+};
 
-      const newBooked = new Set(bookedSeats);
-      selectedSeats.forEach(s => newBooked.add(s));
-
-      setBookedSeats(newBooked);
-      setSelectedSeats(new Set());
-      setMessage("Seats booked successfully!");
-    } catch (err) {
-      console.error(err);
-      setMessage(err.message || "Booking failed.");
-    }
-  };
 
   if (loading) {
     return <div style={{ padding: 20, color: "white" }}>Loading seats…</div>;

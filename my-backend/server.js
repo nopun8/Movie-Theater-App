@@ -13,6 +13,12 @@ const seatsRoutes = require('./routes/seats');
 const bookingsRoutes = require('./routes/bookings');
 const paymentsRoutes = require('./routes/payments');
 
+const adminAuthRoutes = require('./routes/adminAuth');
+const adminMovies = require('./routes/admin/movies');
+const adminTheaters = require('./routes/admin/theaters');
+const adminScreens = require('./routes/admin/screens');
+const adminShowtimes = require('./routes/admin/showtimes');
+
 
 const app = express()
 const PORT = 5000
@@ -23,6 +29,8 @@ const JWT_SECRET = "mysecretsignkey-dontleakthis"
 app.use(cors()) // Enable CORS for all routes
 app.use(express.json()) // for parsing application/json
 app.use(passport.initialize()) // Initialize Passport
+
+
 
 const users = []
 
@@ -56,6 +64,12 @@ app.use('/api/showtimes', showtimesRoutes);
 app.use('/api/seats', seatsRoutes);
 app.use('/api/bookings', bookingsRoutes);
 app.use('/api/payments', paymentsRoutes);
+
+app.use("/admin/auth", adminAuthRoutes);
+app.use("/admin/movies", adminMovies);
+app.use("/admin/theaters", adminTheaters);
+app.use("/admin/screens", adminScreens);
+app.use("/admin/showtimes", adminShowtimes);
 
 app.get('/', (req, res) => {
   res.send('Hello World!')

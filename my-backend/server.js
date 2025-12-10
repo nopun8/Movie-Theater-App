@@ -21,7 +21,7 @@ const adminShowtimes = require('./routes/admin/showtimes');
 
 
 const app = express()
-const PORT = 5000
+const PORT = process.env.PORT || 5000
 
 // Secret key for JWT
 const JWT_SECRET = "mysecretsignkey-dontleakthis"

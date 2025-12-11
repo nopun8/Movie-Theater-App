@@ -51,7 +51,7 @@ function App() {
             <img
               width={60}
               height={70}
-              src="http://localhost:3000/assets/north-star-logo.jpg"
+              src="/assets/north-star-logo.jpg"
               alt="App Logo"
               style={{ borderRadius: 8, cursor: 'pointer' }}
             />

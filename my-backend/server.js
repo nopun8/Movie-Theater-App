@@ -14,6 +14,9 @@ const seatsRoutes = require('./routes/seats');
 const bookingsRoutes = require('./routes/bookings');
 const paymentsRoutes = require('./routes/payments');
 
+const dbSetupRoute = require("./routes/dbSetup");
+
+
 const adminAuthRoutes = require('./routes/adminAuth');
 const adminMovies = require('./routes/admin/movies');
 const adminTheaters = require('./routes/admin/theaters');
@@ -75,6 +78,8 @@ app.use("/admin/showtimes", adminShowtimes);
 app.get('/', (req, res) => {
   res.send('Hello World!')
 })
+
+app.use("/db/setup", dbSetupRoute);
 
 
 /* User registration endpoint.

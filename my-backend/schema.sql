@@ -1,5 +1,3 @@
-CREATE EXTENSION IF NOT EXISTS pgcrypto WITH SCHEMA public;
-
 CREATE TABLE public.admins (
     admin_id integer NOT NULL,
     username character varying(50) NOT NULL,

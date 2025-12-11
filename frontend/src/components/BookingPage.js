@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate, Link } from 'react-router-dom';
-
-const API_BASE = process.env.REACT_APP_API_BASE || 'http://localhost:5000/api';
+import API from "../Api";
+const API_BASE = API;
 
 function BookingPage() {
   const { bookingId } = useParams();
@@ -18,7 +18,7 @@ function BookingPage() {
 
     const load = async () => {
       try {
-        const res = await fetch(`${API_BASE}/bookings/details/${bookingId}`, {
+        const res = await fetch(`${API_BASE}/api/bookings/details/${bookingId}`, {
           headers: {
             'Authorization': `Bearer ${token}`,
           },

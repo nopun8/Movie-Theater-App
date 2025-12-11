@@ -1,8 +1,8 @@
 
 import React, { useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
-
-const API_BASE = process.env.REACT_APP_API_BASE || 'http://localhost:5000/api';
+import API from "../Api";
+const API_BASE = API;
 
 function MovieDetails() {
   const { movieId } = useParams();
@@ -13,7 +13,7 @@ function MovieDetails() {
   useEffect(() => {
     let isMounted = true;
     setLoading(true);
-    fetch(`${API_BASE}/movies/${movieId}`)
+    fetch(`${API_BASE}/api/movies/${movieId}`)
       .then(r => {
         if (!r.ok) throw new Error('Failed to load movie');
         return r.json();

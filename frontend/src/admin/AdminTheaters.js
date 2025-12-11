@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
+import API from "../Api";
 
 // Sidebar link style
 const linkStyle = {
@@ -25,7 +26,7 @@ function AdminTheaters() {
 
     // Load theaters
     const load = async () => {
-        const res = await axios.get("http://localhost:5000/admin/theaters", {
+        const res = await axios.get(`${API}/admin/theaters`, {
             headers: { Authorization: `Bearer ${token}` }
         });
         setTheaters(res.data);
@@ -37,7 +38,7 @@ function AdminTheaters() {
 
     // Save new theater
     const save = async () => {
-        await axios.post("http://localhost:5000/admin/theaters", form, {
+        await axios.post(`${API}/admin/theaters`, form, {
             headers: { Authorization: `Bearer ${token}` }
         });
         setForm({});
@@ -47,7 +48,7 @@ function AdminTheaters() {
     // Delete theater
     const remove = async (id) => {
         if (!window.confirm("Delete this theater?")) return;
-        await axios.delete(`http://localhost:5000/admin/theaters/${id}`, {
+        await axios.delete(`${API}/admin/theaters/${id}`, {
             headers: { Authorization: `Bearer ${token}` }
         });
         load();

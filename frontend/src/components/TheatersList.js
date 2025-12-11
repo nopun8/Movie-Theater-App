@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from 'react';
+import API from "../Api";
 
 function TheatersList() {
   const [theaters, setTheaters] = useState([]);
 
   useEffect(() => {
-    fetch('http://localhost:5000/api/theaters')
+    fetch(`${API}/api/theaters`)
       .then(res => res.json())
       .then(data => setTheaters(data))
       .catch(err => console.error('Error:', err));

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
+import API from "../Api";
 
 const linkStyle = {
   padding: "10px 0",
@@ -24,15 +25,15 @@ function AdminShowtimes() {
   const [form, setForm] = useState({});
 
   const load = async () => {
-    const m = await axios.get("http://localhost:5000/admin/movies", {
+    const m = await axios.get(`${API}/admin/movies`, {
       headers: { Authorization: `Bearer ${token}` }
     });
 
-    const sc = await axios.get("http://localhost:5000/admin/screens", {
+    const sc = await axios.get(`${API}/admin/screens`, {
       headers: { Authorization: `Bearer ${token}` }
     });
 
-    const s = await axios.get("http://localhost:5000/admin/showtimes", {
+    const s = await axios.get(`${API}/admin/showtimes`, {
       headers: { Authorization: `Bearer ${token}` }
     });
 
@@ -46,7 +47,7 @@ function AdminShowtimes() {
   }, []);
 
   const save = async () => {
-    await axios.post("http://localhost:5000/admin/showtimes", form, {
+    await axios.post(`${API}/admin/showtimes`, form, {
       headers: { Authorization: `Bearer ${token}` }
     });
     setForm({});

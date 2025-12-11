@@ -1,8 +1,8 @@
 // components/SeatSelection.js
 import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-
-const API_BASE = process.env.REACT_APP_API_BASE || 'http://localhost:5000/api';
+import API from "../Api";
+const API_BASE = API;
 
 function SeatSelection() {
   const { showtimeId } = useParams();
@@ -21,7 +21,7 @@ function SeatSelection() {
     const load = async () => {
       try {
         setLoading(true);
-        const res = await fetch(`${API_BASE}/seats/${showtimeId}`);
+        const res = await fetch(`${API_BASE}/api/seats/${showtimeId}`);
         const data = await res.json();
 
         setTotalSeats(data.total_seats);
@@ -91,7 +91,7 @@ function SeatSelection() {
       };
     });
 
-    const res = await fetch(`${API_BASE}/seats/book`, {
+    const res = await fetch(`${API_BASE}/api/seats/book`, {
       method: 'POST',
       headers: { 
         'Content-Type': 'application/json',

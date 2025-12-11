@@ -1,8 +1,9 @@
 // components/MoviesList.js
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
+import API from "../Api";
 
-const API_BASE = process.env.REACT_APP_API_BASE || 'http://localhost:5000/api';
+const API_BASE = API
 
 function MoviesList() {
   const [movies, setMovies] = useState([]);
@@ -15,7 +16,7 @@ function MoviesList() {
   const fetchMovies = async () => {
     try {
       setLoading(true);
-      let url = `${API_BASE}/movies`;
+      let url = `${API_BASE}/api/movies`;
 
       const params = new URLSearchParams();
       if (query) params.append('q', query);
@@ -23,7 +24,7 @@ function MoviesList() {
       if (rating) params.append('rating', rating);
 
       if ([...params].length > 0) {
-        url = `${API_BASE}/movies/search?${params.toString()}`;
+        url = `${API_BASE}/api/movies/search?${params.toString()}`;
       }
 
       const res = await fetch(url);

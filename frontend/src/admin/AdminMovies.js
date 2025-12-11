@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
+import API from "../Api";
 
 const linkStyle = {
   padding: "10px 0",
@@ -20,7 +21,7 @@ function AdminMovies() {
   const token = localStorage.getItem("adminToken");
 
   const load = async () => {
-    const res = await axios.get("http://localhost:5000/admin/movies", {
+    const res = await axios.get(`${API}/admin/movies`, {
       headers: { Authorization: `Bearer ${token}` }
     });
     setMovies(res.data);
@@ -29,7 +30,7 @@ function AdminMovies() {
   useEffect(() => { load(); }, []);
 
   const save = async () => {
-    await axios.post("http://localhost:5000/admin/movies", form, {
+    await axios.post(`${API}/admin/movies`, form, {
       headers: { Authorization: `Bearer ${token}` }
     });
     setForm({});
@@ -38,7 +39,7 @@ function AdminMovies() {
 
   const remove = async (id) => {
     if (!window.confirm("Delete this movie?")) return;
-    await axios.delete(`http://localhost:5000/admin/movies/${id}`, {
+    await axios.delete(`${API}/admin/movies/${id}`, {
       headers: { Authorization: `Bearer ${token}` }
     });
     load();

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-
-const API_BASE = process.env.REACT_APP_API_BASE || 'http://localhost:5000/api';
+import API from "../Api";
+const API_BASE = API;
 
 function UpcomingMovies() {
   const [movies, setMovies] = useState([]);
@@ -11,7 +11,7 @@ function UpcomingMovies() {
     const load = async () => {
       try {
         setLoading(true);
-        const res = await fetch(`${API_BASE}/movies/upcoming/list`);
+        const res = await fetch(`${API_BASE}/api/movies/upcoming/list`);
         const data = await res.json();
         setMovies(Array.isArray(data) ? data : []);
       } catch (err) {

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import API from "../Api";
 
 function Dashboard() {
   const [message, setMessage] = useState('');
@@ -22,7 +23,7 @@ function Dashboard() {
   // Fetch bookings of logged-in user
   const loadMyBookings = async () => {
     try {
-      const response = await axios.get('http://localhost:5000/api/bookings/my', {
+      const response = await axios.get(`${API}/api/bookings/my`, {
         headers: { Authorization: `Bearer ${token}` }
       });
       setBookings(response.data);
@@ -34,7 +35,7 @@ function Dashboard() {
   // Fetch protected test data
   const handleProtected = async () => {
     try {
-      const response = await axios.get('http://localhost:5000/protected-resource', {
+      const response = await axios.get(`${API}/protected-resource`, {
         headers: { Authorization: `Bearer ${token}` }
       });
       setMessage(response.data.data);
@@ -50,7 +51,7 @@ function Dashboard() {
   // Fetch all users
   const handleGetUsers = async () => {
     try {
-      const response = await axios.get('http://localhost:5000/users');
+      const response = await axios.get(`${API}/users`);
       setUsers(response.data);
       setMessage('');
     } catch (error) {

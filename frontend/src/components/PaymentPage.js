@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
+import API from "../Api";
 
-const API_BASE = process.env.REACT_APP_API_BASE || 'http://localhost:5000/api';
+const API_BASE = API
 
 function PaymentPage() {
   const { bookingId } = useParams();
@@ -23,7 +24,7 @@ function PaymentPage() {
 
     const load = async () => {
       try {
-        const res = await fetch(`${API_BASE}/bookings/details/${bookingId}`, {
+        const res = await fetch(`${API_BASE}/api/bookings/details/${bookingId}`, {
           headers: { 'Authorization': `Bearer ${token}` }
         });
         const data = await res.json();
@@ -45,7 +46,7 @@ function PaymentPage() {
     }
 
     try {
-      const res = await fetch(`${API_BASE}/payments`, {
+      const res = await fetch(`${API_BASE}/api/payments`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
+import API from "../Api";
 
 const linkStyle = {
   padding: "10px 0",
@@ -22,10 +23,10 @@ function AdminScreens() {
   const token = localStorage.getItem("adminToken");
 
   const load = async () => {
-    const t = await axios.get("http://localhost:5000/admin/theaters", { 
+    const t = await axios.get(`${API}/admin/theaters`, { 
       headers: { Authorization: `Bearer ${token}` } 
     });
-    const sc = await axios.get("http://localhost:5000/admin/screens", { 
+    const sc = await axios.get(`${API}/admin/screens`, { 
       headers: { Authorization: `Bearer ${token}` } 
     });
     setTheaters(t.data);
@@ -35,7 +36,7 @@ function AdminScreens() {
   useEffect(() => { load(); }, []);
 
   const save = async () => {
-    await axios.post("http://localhost:5000/admin/screens", form, {
+    await axios.post(`${API}/admin/screens`, form, {
       headers: { Authorization: `Bearer ${token}` }
     });
     setForm({});

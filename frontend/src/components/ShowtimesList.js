@@ -1,8 +1,8 @@
 // components/ShowtimesList.js
 import React, { useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
-
-const API_BASE = process.env.REACT_APP_API_BASE || 'http://localhost:5000/api';
+import API from "../Api";
+const API_BASE = API;
 
 function ShowtimesList() {
   const { movieId } = useParams(); // used when path is /movies/:movieId/showtimes
@@ -11,9 +11,9 @@ function ShowtimesList() {
   useEffect(() => {
     const load = async () => {
       try {
-        let url = `${API_BASE}/showtimes`;
+        let url = `${API_BASE}/api/showtimes`;
         if (movieId) {
-          url = `${API_BASE}/movies/${movieId}/showtimes`;
+          url = `${API_BASE}/api/movies/${movieId}/showtimes`;
         }
         const res = await fetch(url);
         const data = await res.json();
